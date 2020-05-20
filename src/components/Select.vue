@@ -7,7 +7,7 @@
     <slot name="header" v-bind="scope.header" />
     <div :id="`vs${uid}__combobox`" ref="toggle" @mousedown="toggleDropdown($event)" class="vs__dropdown-toggle" role="combobox" :aria-expanded="dropdownOpen.toString()" :aria-owns="`vs${uid}__listbox`" aria-label="Search for option">
 
-      <div class="vs__selected-options" ref="selectedOptions">
+      <slot class="vs__selected-options" ref="selectedOptions" name="selected-options" :selectedValue="selectedValue">
         <slot v-for="option in selectedValue"
               name="selected-option-container"
               :option="normalizeOptionForSlot(option)"
@@ -27,7 +27,7 @@
         <slot name="search" v-bind="scope.search">
           <input class="vs__search" v-bind="scope.search.attributes" v-on="scope.search.events">
         </slot>
-      </div>
+      </slot>
 
       <div class="vs__actions" ref="actions">
         <button
