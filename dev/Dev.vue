@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <v-select v-model="selected" placeholder="Περιοχή" :multiple="true" label="name" :options="areas" :clearable="false">
-      <template #selected-options="{selectedValue,getOptionLabel,getOptionKey,normalizeOptionForSlot,deselect,multiple,disabled}" v-if="selected">
+    <v-select v-model="selected" placeholder="Περιοχή" :multiple="true" label="label" :options="areas" :clearable="false">
+      <template #selected-options="{selectedValue,getOptionLabel,getOptionKey,normalizeOptionForSlot,deselect,multiple,disabled,childComponents,scopeSearch}" v-if="selected">
         <template v-if="selectedValue.length<3">
           <span
             v-for="option in selectedValue"
@@ -12,7 +12,7 @@
             :disabled="disabled"
             class="vs__selected"
           >
-            {{option.name}}
+            {{option.label}}
             <button
               v-if="multiple"
               :disabled="disabled"
@@ -23,10 +23,11 @@
             >
               <!-- :title="`Deselect ${getOptionLabel(option)}`" -->
               <!-- :aria-label="`Deselect ${getOptionLabel(option)}`" -->
-            x
-              <!-- <component :is="childComponents.Deselect" /> -->
+              <component :is="childComponents.Deselect" />
             </button>
           </span>
+          
+          <input class="vs__search" v-bind="scopeSearch.attributes" v-on="scopeSearch.events">
         </template>
         <template v-else>
           <span>Multiple areas selected</span>
