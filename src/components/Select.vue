@@ -8,7 +8,7 @@
     <div :id="`vs${uid}__combobox`" ref="toggle" @mousedown="toggleDropdown($event)" class="vs__dropdown-toggle" role="combobox" :aria-expanded="dropdownOpen.toString()" :aria-owns="`vs${uid}__listbox`" aria-label="Search for option">
 
       <div class="vs__selected-options">
-        <slot ref="selectedOptions" name="selected-options" :selectedValue="selectedValue" class="vs__selected-options" tag="div">
+        <slot ref="selectedOptions" name="selected-options" :selectedValue="selectedValue" :getOptionLabel="getOptionLabel">
           <slot v-for="option in selectedValue"
                 name="selected-option-container"
                 :option="normalizeOptionForSlot(option)"
