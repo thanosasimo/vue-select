@@ -7,27 +7,29 @@
     <slot name="header" v-bind="scope.header" />
     <div :id="`vs${uid}__combobox`" ref="toggle" @mousedown="toggleDropdown($event)" class="vs__dropdown-toggle" role="combobox" :aria-expanded="dropdownOpen.toString()" :aria-owns="`vs${uid}__listbox`" aria-label="Search for option">
 
-      <slot class="vs__selected-options" tag="div" ref="selectedOptions" name="selected-options" :selectedValue="selectedValue">
-        <slot v-for="option in selectedValue"
-              name="selected-option-container"
-              :option="normalizeOptionForSlot(option)"
-              :deselect="deselect"
-              :multiple="multiple"
-              :disabled="disabled">
-          <span :key="getOptionKey(option)" class="vs__selected">
-            <slot name="selected-option" v-bind="normalizeOptionForSlot(option)">
-              {{ getOptionLabel(option) }}
-            </slot>
-            <button v-if="multiple" :disabled="disabled" @click="deselect(option)" type="button" class="vs__deselect" :title="`Deselect ${getOptionLabel(option)}`" :aria-label="`Deselect ${getOptionLabel(option)}`" ref="deselectButtons">
-              <component :is="childComponents.Deselect" />
-            </button>
-          </span>
-        </slot>
+      <div class="vs__selected-options">
+        <slot ref="selectedOptions" name="selected-options" :selectedValue="selectedValue" class="vs__selected-options" tag="div">
+          <slot v-for="option in selectedValue"
+                name="selected-option-container"
+                :option="normalizeOptionForSlot(option)"
+                :deselect="deselect"
+                :multiple="multiple"
+                :disabled="disabled">
+            <span :key="getOptionKey(option)" class="vs__selected">
+              <slot name="selected-option" v-bind="normalizeOptionForSlot(option)">
+                {{ getOptionLabel(option) }}
+              </slot>
+              <button v-if="multiple" :disabled="disabled" @click="deselect(option)" type="button" class="vs__deselect" :title="`Deselect ${getOptionLabel(option)}`" :aria-label="`Deselect ${getOptionLabel(option)}`" ref="deselectButtons">
+                <component :is="childComponents.Deselect" />
+              </button>
+            </span>
+          </slot>
 
-        <slot name="search" v-bind="scope.search">
-          <input class="vs__search" v-bind="scope.search.attributes" v-on="scope.search.events">
+          <slot name="search" v-bind="scope.search">
+            <input class="vs__search" v-bind="scope.search.attributes" v-on="scope.search.events">
+          </slot>
         </slot>
-      </slot>
+      </div>
 
       <div class="vs__actions" ref="actions">
         <button
