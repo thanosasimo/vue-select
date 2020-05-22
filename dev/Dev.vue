@@ -38,8 +38,7 @@
 
 <script>
   import vSelect from "../src/components/Select";
-  // import countries from "../docs/.vuepress/data/countryCodes";
-  import areas from "../docs/.vuepress/data/areas";
+  import countries from "../docs/.vuepress/data/countryCodes";
   import books from "../docs/.vuepress/data/books";
 
   export default {
@@ -48,7 +47,7 @@
     },
     data: () => ({
       selected: null,
-      areas: areas,
+      areas: countries,
       // config: {
       //   options: areas
       // }
